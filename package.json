@@ -1,0 +1,35 @@
+{
+	"name": "veredas-backend",
+	"version": "1.0.0",
+	"description": "Backend API for Trilhas hiking webapp",
+	"main": "src/server.js",
+	"scripts": {
+		"start": "node src/server.js",
+		"dev": "nodemon src/server.js",
+		"test": "jest"
+	},
+	"keywords": [
+		"hiking",
+		"trails",
+		"reviews",
+		"api"
+	],
+	"author": "Luis Tanese & Mateus Foltran",
+	"license": "MIT",
+	"dependencies": {
+		"ajv": "^8.12.0",
+		"ajv-formats": "^2.1.1",
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"express-rate-limit": "^8.0.1",
+		"jsonwebtoken": "^9.0.2",
+		"mongodb": "^6.3.0"
+	},
+	"devDependencies": {
+		"jest": "^29.7.0",
+		"nodemon": "^3.0.2",
+		"supertest": "^6.3.3"
+	}
+}
