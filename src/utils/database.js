@@ -29,11 +29,14 @@ const connectToDatabase = async () => {
 	}
 };
 
-const getDatabase = () => {
-	if (!db) {
-		throw new Error("Database not initialized. Call connectToDatabase() first.");
-	}
-	return db;
+const getDatabase = async () => {
+	try {
+		if (!db) {
+			console.log("Database not initialized. Initializing again.");
+			connectToDatabase();
+		}
+		return db;
+	} catch (error) {}
 };
 
 const getUsersCollection = () => {

@@ -9,7 +9,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
-const { connectToDatabase, closeDatabaseConnection } = require("./utils/database");
+const { connectToDatabase } = require("./utils/database");
 const { createIndexes } = require("./utils/dbIndexes");
 const { validateEnvironment } = require("./utils/validateEnv");
 
