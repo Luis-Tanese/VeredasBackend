@@ -21,7 +21,7 @@ const authenticateToken = async (req, res, next) => {
 
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 		const user = await usersCollection.findOne(
 			{ _id: new ObjectId(decoded.userId) },
 			{ projection: { password: 0 } }

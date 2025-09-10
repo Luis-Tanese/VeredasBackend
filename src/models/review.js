@@ -53,7 +53,7 @@ class Review {
 	}
 
 	static async create(reviewData, userId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 		const Trail = require("./trail");
 
 		if (!Trail.exists(reviewData.trailId)) {
@@ -86,7 +86,7 @@ class Review {
 	}
 
 	static async findById(reviewId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 		const review = await reviewsCollection.findOne({ _id: new ObjectId(reviewId) });
 
 		if (!review) {
@@ -97,7 +97,7 @@ class Review {
 	}
 
 	static async update(reviewId, updateData, userId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const review = await reviewsCollection.findOne({ _id: new ObjectId(reviewId) });
 		if (!review) {
@@ -123,7 +123,7 @@ class Review {
 	}
 
 	static async delete(reviewId, userId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const review = await reviewsCollection.findOne({ _id: new ObjectId(reviewId) });
 		if (!review) {
@@ -139,7 +139,7 @@ class Review {
 	}
 
 	static async getByUserId(userId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const reviews = await reviewsCollection
 			.find({ userId: new ObjectId(userId) })
@@ -150,7 +150,7 @@ class Review {
 	}
 
 	static async getByTrailId(trailId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const reviews = await reviewsCollection.find({ trailId }).sort({ createdAt: -1 }).toArray();
 
@@ -158,14 +158,14 @@ class Review {
 	}
 
 	static async getAll() {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 		const reviews = await reviewsCollection.find({}).sort({ createdAt: -1 }).toArray();
 
 		return await Review.syncMultipleReviews(reviews);
 	}
 
 	static async hasUserReviewed(userId, trailId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const review = await reviewsCollection.findOne({
 			userId: new ObjectId(userId),
@@ -176,7 +176,7 @@ class Review {
 	}
 
 	static async getTrailStats(trailId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const reviews = await reviewsCollection.find({ trailId }).toArray();
 

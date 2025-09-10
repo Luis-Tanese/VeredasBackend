@@ -7,44 +7,46 @@
 
 const { MongoClient } = require("mongodb");
 
-let db = null;
 let client = null;
+let db = null;
 
 const connectToDatabase = async () => {
-	if (db) return db;
+	if (db && client) {
+		return db;
+	}
 
 	try {
 		const uri = process.env.MONGO_URI;
 
-		client = new MongoClient(uri);
+		if (!client) {
+			client = new MongoClient(uri);
+			console.log("Creating new MongoDB client connection...");
+			await client.connect();
+			console.log("MongoDB client connected successfully");
+		}
 
-		await client.connect();
 		db = client.db("veredas-db");
-
-		console.log("Connected to MongoDB successfully");
 		return db;
 	} catch (error) {
 		console.error("Failed to connect to MongoDB:", error);
+		client = null;
+		db = null;
 		throw error;
 	}
 };
 
 const getDatabase = async () => {
-	try {
-		if (!db) {
-			console.log("Database not initialized. Initializing again.");
-			connectToDatabase();
-		}
-		return db;
-	} catch (error) {}
+	return await connectToDatabase();
 };
 
-const getUsersCollection = () => {
-	return getDatabase().collection("users");
+const getUsersCollection = async () => {
+	const database = await getDatabase();
+	return database.collection("users");
 };
 
-const getReviewsCollection = () => {
-	return getDatabase().collection("reviews");
+const getReviewsCollection = async () => {
+	const database = await getDatabase();
+	return database.collection("reviews");
 };
 
 module.exports = {

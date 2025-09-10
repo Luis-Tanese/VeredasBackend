@@ -9,8 +9,8 @@ const { getUsersCollection, getReviewsCollection } = require("./database");
 
 async function createIndexes() {
 	try {
-		const usersCollection = getUsersCollection();
-		const reviewsCollection = getReviewsCollection();
+		const usersCollection = await getUsersCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		await usersCollection.createIndex({ email: 1 }, { unique: true });
 		await usersCollection.createIndex({ username: 1 }, { unique: true });

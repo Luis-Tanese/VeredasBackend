@@ -32,7 +32,7 @@ class User {
 	}
 
 	static async create(userData) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 
 		const existingUser = await usersCollection.findOne({ email: userData.email });
 		if (existingUser) {
@@ -52,17 +52,17 @@ class User {
 	}
 
 	static async findByEmail(email) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 		return await usersCollection.findOne({ email });
 	}
 
 	static async findById(userId) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 		return await usersCollection.findOne({ _id: new ObjectId(userId) }, { projection: { password: 0 } });
 	}
 
 	static async updateProfile(userId, updateData) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 
 		if (updateData.username) {
 			const existingUser = await usersCollection.findOne({
@@ -88,7 +88,7 @@ class User {
 	}
 
 	static async changePassword(userId, currentPassword, newPassword) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 
 		const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
 		if (!user) {
@@ -116,7 +116,7 @@ class User {
 	}
 
 	static async deleteAccount(userId) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 
 		await usersCollection.deleteOne({ _id: new ObjectId(userId) });
 
@@ -124,7 +124,7 @@ class User {
 	}
 
 	static async getUserReviews(userId) {
-		const reviewsCollection = getReviewsCollection();
+		const reviewsCollection = await getReviewsCollection();
 
 		const reviews = await reviewsCollection
 			.find({ userId: new ObjectId(userId) })
@@ -135,7 +135,7 @@ class User {
 	}
 
 	static async toggleFavorite(userId, trailId) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 		const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
 
 		if (!user) {
@@ -167,7 +167,7 @@ class User {
 	}
 
 	static async getUsersWhoFavorited(trailId) {
-		const usersCollection = getUsersCollection();
+		const usersCollection = await getUsersCollection();
 		const trailIdNum = parseInt(trailId);
 
 		const users = await usersCollection
