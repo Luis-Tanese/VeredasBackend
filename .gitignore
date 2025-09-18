@@ -84,3 +84,5 @@ test-results/
 
 # Trail Management Website Backups
 trail-manager/backups/
+
+scripts/
