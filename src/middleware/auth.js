@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2025 Tanese. All Rights Reserved.
- *
- * This software is proprietary and confidential. Unauthorized copying, distribution,
- * modification, or use of this software is strictly prohibited.
- */
-
 const jwt = require("jsonwebtoken");
 const { ObjectId } = require("mongodb");
 const { getUsersCollection } = require("../utils/database");

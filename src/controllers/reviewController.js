@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2025 Tanese. All Rights Reserved.
- *
- * This software is proprietary and confidential. Unauthorized copying, distribution,
- * modification, or use of this software is strictly prohibited.
- */
-
 const Review = require("../models/review");
 const {
 	successResponse,
